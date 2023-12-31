@@ -41,5 +41,37 @@ find /var/www -type d -exec sudo chmod 2775 {} \;
 
 find /var/www -type f -exec sudo chmod 0664 {} \;
 
+# Install MySQL
+sudo apt install mysql-server 
+
+
+sudo mysql -u root -p
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password by 'Testpassword@123';
+
+
+CREATE USER 'wp_user'@localhost IDENTIFIED BY 'Testpassword@123';
+
+
+CREATE DATABASE wp;
+
+
+GRANT ALL PRIVILEGES ON wp.* TO 'wp_user'@localhost;
+
+# Wordpress finally
+
+
+cd /tmp
+wget https://wordpress.org/latest.tar.gz
+
+
+tar -xvf latest.tar.gz
+
+
+sudo mv wordpress/ /var/www/html
+
+
+sudo systemctl restart apache2
+
 
 
